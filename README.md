@@ -1,4 +1,4 @@
-<p align="center">![Project Andesite Logo](./docs/resources/logo-5perc.png)</p>
+<p align="center"><img src="./docs/resources/logo-5perc.png"/></p>
 
 Ever wanted to mod Minecraft, but had no idea where to start? The Andesite Project is a Minecraft modding project aimed at helping out people like you. Using the Andesite Project, you can create blocks and items and alter the behavior of the game with an easy-to-use graphical interface. No coding needed!
 
