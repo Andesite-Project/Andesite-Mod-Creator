@@ -25,6 +25,7 @@ package info.varden.andesite.creator.gui;
 
 import info.varden.andesite.creator.CipheredKeyPair;
 import info.varden.andesite.creator.gui.components.ImagePanel;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -35,6 +36,7 @@ import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;

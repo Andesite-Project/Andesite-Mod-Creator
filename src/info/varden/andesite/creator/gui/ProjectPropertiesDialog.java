@@ -8,9 +8,11 @@ package info.varden.andesite.creator.gui;
 import info.varden.andesite.core.ProjectProperties;
 import info.varden.andesite.creator.gui.components.FieldCharLimiter;
 import info.varden.andesite.creator.gui.components.ImagePanel;
+
 import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.File;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;

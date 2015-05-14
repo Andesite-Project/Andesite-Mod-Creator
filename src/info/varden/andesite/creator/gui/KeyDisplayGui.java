@@ -24,12 +24,15 @@
 package info.varden.andesite.creator.gui;
 
 import info.varden.andesite.creator.CipheredKeyPair;
+
 import java.awt.Point;
 import java.util.HashMap;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
 import net.iharder.base64.Base64;
 
 /**

@@ -1,14 +1,13 @@
 package info.varden.andesite.action.base;
 
+import info.varden.andesite.core.Action;
+import info.varden.andesite.io.AndesiteIO;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-
-import info.varden.andesite.core.Action;
-import info.varden.andesite.io.AndesiteIO;
 
 public abstract class IdFloatDataAction implements Action {
 

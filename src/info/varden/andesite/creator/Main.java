@@ -6,7 +6,6 @@
 package info.varden.andesite.creator;
 
 import info.varden.andesite.creator.gui.CreatorGui;
-import info.varden.andesite.creator.gui.CurseAuthGui;
 
 /**
  *

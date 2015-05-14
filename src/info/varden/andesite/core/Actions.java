@@ -24,7 +24,6 @@
 package info.varden.andesite.core;
 
 import info.varden.andesite.action.BlockLightValueAction;
-import info.varden.andesite.core.Action;
 
 import java.util.HashMap;
 

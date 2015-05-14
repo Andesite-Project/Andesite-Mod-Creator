@@ -28,6 +28,7 @@ import info.varden.andesite.crypto.BenchmarkResults;
 import info.varden.andesite.crypto.CryptoBenchmark;
 import info.varden.andesite.helper.RSAKeygenResults;
 import info.varden.andesite.helper.ThreadAccessibleObjectStorage;
+
 import java.awt.Color;
 import java.awt.Frame;
 import java.security.InvalidKeyException;
@@ -36,6 +37,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.crypto.Cipher;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;

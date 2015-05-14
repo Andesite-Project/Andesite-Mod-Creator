@@ -26,7 +26,7 @@ package info.varden.andesite.creator.gui;
 import info.varden.andesite.core.AndesiteProject;
 import info.varden.andesite.creator.CipheredKeyPair;
 import info.varden.andesite.io.AndesiteIO;
-import java.awt.Point;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,6 +36,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
@@ -43,9 +44,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
-import net.iharder.base64.Base64;
 
 /**
  *

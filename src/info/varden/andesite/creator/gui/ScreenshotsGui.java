@@ -27,9 +27,10 @@ import info.varden.andesite.core.AndesiteProject;
 import info.varden.andesite.core.Screenshot;
 import info.varden.andesite.creator.gui.components.ImagePanel;
 import info.varden.andesite.creator.gui.components.ImagePanel.AnchorStyle;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;

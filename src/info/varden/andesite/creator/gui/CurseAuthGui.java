@@ -27,9 +27,7 @@ import java.awt.Cursor;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,6 +35,7 @@ import java.net.URLConnection;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JEditorPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;

@@ -1,12 +1,11 @@
 package info.varden.andesite.action;
 
-import net.minecraftforge.fml.common.registry.GameData;
 import info.varden.andesite.action.base.IdFloatDataAction;
 import info.varden.andesite.core.Action;
 import info.varden.andesite.core.ActionData;
 import info.varden.andesite.modloader.BlockWrapper;
 
-//@ActionData(id = 0, version = 1)
+@ActionData(id = 0, version = 1)
 public class BlockLightValueAction extends IdFloatDataAction implements Action {
 	
 	private float lightLevel;

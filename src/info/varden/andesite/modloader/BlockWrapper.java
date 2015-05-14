@@ -3,13 +3,11 @@ package info.varden.andesite.modloader;
 import info.varden.andesite.modloader.util.RegistryUtils;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BlockWrapper extends Block {
 	
