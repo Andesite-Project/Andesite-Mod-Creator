@@ -7,31 +7,31 @@ import info.varden.andesite.modloader.BlockWrapper;
 
 @ActionData(id = 0, version = 1)
 public class BlockLightValueAction extends IdFloatDataAction implements Action {
-	
-	private float lightLevel;
-	private String blockId;
+    
+    private float lightLevel;
+    private String blockId;
 
-	@Override
-	public void execute() {
-		BlockWrapper b = BlockWrapper.getFor(blockId);
-		b.setLightLevel(lightLevel);
-	}
-
-	@Override
-	public float getData() {
-		return this.lightLevel;
-	}
-
-	@Override
-    public Action parse(String id, float data) {
-		this.blockId = id;
-	    this.lightLevel = data;
-	    return this;
+    @Override
+    public void execute() {
+        BlockWrapper b = BlockWrapper.getFor(blockId);
+        b.setLightLevel(lightLevel);
     }
 
-	@Override
+    @Override
+    public float getData() {
+        return this.lightLevel;
+    }
+
+    @Override
+    public Action parse(String id, float data) {
+        this.blockId = id;
+        this.lightLevel = data;
+        return this;
+    }
+
+    @Override
     public String getID() {
-	    return blockId;
+        return blockId;
     }
 
 }

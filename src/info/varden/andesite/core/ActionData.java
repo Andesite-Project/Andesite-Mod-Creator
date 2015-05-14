@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Inherited
 public @interface ActionData {
-	public int id();
-	public int version();
+    public int id();
+    public int version();
 }
