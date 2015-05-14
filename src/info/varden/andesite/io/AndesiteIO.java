@@ -281,7 +281,7 @@ public class AndesiteIO {
         
         int minAndesiteVersion = 1;
         for (Action action : actions) {
-        	ActionData data = action.getClass().getAnnotation(ActionData.class);
+            ActionData data = action.getClass().getAnnotation(ActionData.class);
             if (data.version() > minAndesiteVersion) {
                 minAndesiteVersion = data.version();
             }
@@ -331,7 +331,7 @@ public class AndesiteIO {
         // Action data
         dos.writeInt(actions.length);
         for (Action a : actions) {
-        	ActionData data = a.getClass().getAnnotation(ActionData.class);
+            ActionData data = a.getClass().getAnnotation(ActionData.class);
             dos.writeInt(data.id());
             byte[] actionData = a.toData();
             writeByteArray(actionData, dos);
