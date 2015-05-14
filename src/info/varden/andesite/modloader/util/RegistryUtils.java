@@ -132,7 +132,7 @@ public class RegistryUtils {
     public static void overwriteEntry(RegistryNamespaced registry, String name, Object object) throws IllegalArgumentException, IllegalAccessException, NoSuchMethodException, SecurityException, ClassNotFoundException, InvocationTargetException {
 
         if (ModAPIManager.INSTANCE.hasAPI("CoFHLib")) {
-            AndesiteML.info("Found CoFHLib; reflecting into it for compatibility");
+        	AndesiteML.info("Found CoFHLib; reflecting into it for compatibility");
             Method m = Class.forName("cofh.lib.util.RegistryUtils").getMethod("overwriteEntry", new Class<?>[] {RegistryNamespaced.class, String.class, Object.class});
             m.invoke(null, new Object[] {registry, name, object});
             return;
@@ -156,14 +156,14 @@ public class RegistryUtils {
     private static Class<RegistryDelegate<?>> DelegateClass;
     
     static {
-        if (ModAPIManager.INSTANCE.hasAPI("CoFHLib")) {
-            replacements = new IdentityHashMap<RegistryNamespaced, Multimap<String, Object>>(2);
-            MinecraftForge.EVENT_BUS.register(new RegistryUtils());
-            try {
-                DelegateClass = (Class<RegistryDelegate<?>>) Class.forName(RegistryDelegate.Delegate.class.getName());
-            } catch (Throwable t) {
-                Throwables.propagate(t);
-            }
-        }
+    	if (ModAPIManager.INSTANCE.hasAPI("CoFHLib")) {
+	        replacements = new IdentityHashMap<RegistryNamespaced, Multimap<String, Object>>(2);
+	        MinecraftForge.EVENT_BUS.register(new RegistryUtils());
+	        try {
+	            DelegateClass = (Class<RegistryDelegate<?>>) Class.forName(RegistryDelegate.Delegate.class.getName());
+	        } catch (Throwable t) {
+	            Throwables.propagate(t);
+	        }
+    	}
     }
 }

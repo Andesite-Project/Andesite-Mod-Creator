@@ -13,15 +13,15 @@ public abstract class IdIntegerDataAction implements Action {
 
     @Override
     public Action parse(byte[] aeData) {
-        DataInputStream dis = new DataInputStream(new ByteArrayInputStream(aeData));
-        String id;
+    	DataInputStream dis = new DataInputStream(new ByteArrayInputStream(aeData));
+    	String id;
         try {
-            id = AndesiteIO.readString(dis);
-            int data = dis.readInt();
-            dis.close();
-            return parse(id, data);
+	        id = AndesiteIO.readString(dis);
+	        int data = dis.readInt();
+	        dis.close();
+	        return parse(id, data);
         } catch (IOException e) {
-            e.printStackTrace();
+	        e.printStackTrace();
         }
         return null;
     }
@@ -31,12 +31,12 @@ public abstract class IdIntegerDataAction implements Action {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dos = new DataOutputStream(baos);
         try {
-            AndesiteIO.writeString(getID(), dos);
-            dos.writeInt(getData());
-            dos.close();
-            return baos.toByteArray();
+        	AndesiteIO.writeString(getID(), dos);
+	        dos.writeInt(getData());
+	        dos.close();
+	        return baos.toByteArray();
         } catch (IOException e) {
-            e.printStackTrace();
+	        e.printStackTrace();
         }
         return null;
     }
