@@ -5,12 +5,14 @@
  */
 package info.varden.andesite.io;
 
-import info.varden.andesite.action.Action;
-import info.varden.andesite.action.Actions;
+import info.varden.andesite.core.Action;
+import info.varden.andesite.core.ActionData;
+import info.varden.andesite.core.Actions;
 import info.varden.andesite.core.AndesiteProject;
 import info.varden.andesite.core.ProjectProperties;
 import info.varden.andesite.core.Screenshot;
 import info.varden.andesite.creator.CipheredKeyPair;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,6 +45,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -278,8 +281,9 @@ public class AndesiteIO {
         
         int minAndesiteVersion = 1;
         for (Action action : actions) {
-            if (action.getMinimumAndesiteVersion() > minAndesiteVersion) {
-                minAndesiteVersion = action.getMinimumAndesiteVersion();
+        	ActionData data = action.getClass().getAnnotation(ActionData.class);
+            if (data.version() > minAndesiteVersion) {
+                minAndesiteVersion = data.version();
             }
         }
         
@@ -327,7 +331,8 @@ public class AndesiteIO {
         // Action data
         dos.writeInt(actions.length);
         for (Action a : actions) {
-            dos.writeInt(a.getActionID());
+        	ActionData data = a.getClass().getAnnotation(ActionData.class);
+            dos.writeInt(data.id());
             byte[] actionData = a.toData();
             writeByteArray(actionData, dos);
         }
@@ -395,7 +400,7 @@ public class AndesiteIO {
         for (int i = 0; i < acCount; i++) {
             int actionID = dis.readInt();
             byte[] blockData = readByteArray(dis);
-            Class<Action> actionClass = Actions.findClassById(actionID);
+            Class<? extends Action> actionClass = Actions.findClassById(actionID);
             if (actionClass == null) {
                 continue;
             }
@@ -420,7 +425,7 @@ public class AndesiteIO {
      * @return The read string
      * @throws IOException Fails to read data from the stream
      */
-    private static String readString(DataInputStream dis) throws IOException {
+    public static String readString(DataInputStream dis) throws IOException {
         return new String(readByteArray(dis));
     }
     
@@ -431,7 +436,7 @@ public class AndesiteIO {
      * @throws UnsupportedEncodingException The UTF-8 charset does not exist
      * @throws IOException Fails to read data from the stream
      */
-    private static void writeString(String s, DataOutputStream dos) throws UnsupportedEncodingException, IOException {
+    public static void writeString(String s, DataOutputStream dos) throws UnsupportedEncodingException, IOException {
         writeByteArray(s.getBytes("UTF-8"), dos);
     }
     
@@ -441,7 +446,7 @@ public class AndesiteIO {
      * @return The read byte array
      * @throws IOException Fails to read data from the stream
      */
-    private static byte[] readByteArray(DataInputStream dis) throws IOException {
+    public static byte[] readByteArray(DataInputStream dis) throws IOException {
         int len = dis.readInt();
         byte[] data = new byte[len];
         dis.read(data, 0, len);
@@ -454,7 +459,7 @@ public class AndesiteIO {
      * @param dos The stream to write to
      * @throws IOException Fails to read data from the stream
      */
-    private static void writeByteArray(byte[] array, DataOutputStream dos) throws IOException {
+    public static void writeByteArray(byte[] array, DataOutputStream dos) throws IOException {
         dos.writeInt(array.length);
         dos.write(array, 0, array.length);
     }
