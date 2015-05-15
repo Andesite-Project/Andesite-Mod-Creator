@@ -3,10 +3,11 @@ package info.varden.andesite.action;
 import info.varden.andesite.action.base.IdDataAction;
 import info.varden.andesite.core.Action;
 import info.varden.andesite.core.ActionData;
+import info.varden.andesite.core.BlockAction;
 import info.varden.andesite.modloader.BlockWrapper;
 
 @ActionData(id = 0, version = 1)
-public class BlockLightValueAction extends IdDataAction<Float> implements Action {
+public class BlockLightValueAction extends IdDataAction<Float> implements Action, BlockAction {
 
     @Override
     public void execute() {
@@ -25,16 +26,22 @@ public class BlockLightValueAction extends IdDataAction<Float> implements Action
         setID(id);
     }
     
+    @Override
     public String getBlockId() {
         return getID();
     }
     
     public void setLightValue(float lightValue) {
-        setData(Float.valueOf(lightValue));
+        setData(lightValue);
     }
     
     public float getLightValue() {
-        return getData().floatValue();
+        return getData();
+    }
+
+    @Override
+    public Class<Float> getDataClass() {
+        return Float.class;
     }
 
 }

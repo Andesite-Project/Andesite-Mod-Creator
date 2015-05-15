@@ -6,6 +6,7 @@
 package info.varden.andesite.creator.gui;
 
 import info.varden.andesite.core.AndesiteProject;
+import info.varden.andesite.creator.gui.propertypanel.BlockPropertyPanel;
 import info.varden.andesite.helper.ThreadAccessibleObjectStorage;
 import info.varden.andesite.io.AndesiteIO;
 import info.varden.andesite.io.SaveState;
@@ -17,9 +18,11 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.GroupLayout;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
 
@@ -34,6 +37,8 @@ public class CreatorGui extends javax.swing.JFrame {
     private String subtitle = "";
     private File saveFile = null;
     private boolean exitAfterSave = false;
+    
+    private JPanel editorPanel = null;
 
     /**
      * Creates new form CreatorGui
@@ -68,6 +73,8 @@ public class CreatorGui extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -193,6 +200,20 @@ public class CreatorGui extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Edit");
+
+        jMenu6.setText("Block");
+        jMenu6.setEnabled(false);
+
+        jMenuItem12.setText("minecraft:dirt");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem12);
+
+        jMenu3.add(jMenu6);
+
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Project");
@@ -280,10 +301,10 @@ public class CreatorGui extends javax.swing.JFrame {
         if (isSaved.get() == SaveState.SAVING) {
             return;
         }
-        isSaved.set(SaveState.SAVING);
         if (saveFile == null) {
             jMenuItem4ActionPerformed(evt);
         } else {
+            isSaved.set(SaveState.SAVING);
             final boolean exit = exitAfterSave;
             exitAfterSave = false;
             ProgressWindow pw = new ProgressWindow<String>(this, null, "Saving", new String[] {"Saving project..."}) {
@@ -354,6 +375,7 @@ public class CreatorGui extends javax.swing.JFrame {
         ppd.setVisible(true);
         if (ppd.result != null) {
             this.project = new AndesiteProject(ppd.result);
+            this.project.addChangeListener(new ChangeListenerImpl());
             this.saveFile = null;
             this.setSubtitle(ppd.result.name);
             enableTools();
@@ -433,6 +455,7 @@ public class CreatorGui extends javax.swing.JFrame {
             this.saveFile = jfc.getSelectedFile();
             try {
                 this.project = AndesiteIO.readProject(this.saveFile);
+                this.project.addChangeListener(new ChangeListenerImpl());
                 this.isSaved.set(SaveState.SAVED);
                 setSubtitle(this.project.properties.name);
                 enableTools();
@@ -517,12 +540,37 @@ public class CreatorGui extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        if (this.editorPanel != null) {
+            jPanel3.remove(this.editorPanel);
+            this.editorPanel = null;
+        }
+        
+        this.editorPanel = new BlockPropertyPanel(jMenuItem12.getText(), this.project);
+        this.editorPanel.setSize(jPanel3.getSize());
+        
+        GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(this.editorPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(this.editorPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        
+        jPanel3.invalidate();
+        jPanel3.repaint();
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     private void enableTools() {
         jMenuItem3.setEnabled(true);
         jMenuItem4.setEnabled(true);
         jMenuItem6.setEnabled(true);
         jMenuItem7.setEnabled(true);
         jMenuItem8.setEnabled(true);
+        jMenu6.setEnabled(true);
     }
     
     private void changesDone() {
@@ -580,10 +628,12 @@ public class CreatorGui extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -601,4 +651,14 @@ public class CreatorGui extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
+
+    private class ChangeListenerImpl extends AndesiteProject.ChangeListener {
+
+        public ChangeListenerImpl() {}
+
+        @Override
+        public void onChanged() {
+            changesDone();
+        }
+    }
 }

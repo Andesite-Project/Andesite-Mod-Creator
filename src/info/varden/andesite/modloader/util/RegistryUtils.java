@@ -15,6 +15,7 @@ import java.util.Map;
 import net.minecraft.item.Item;
 import net.minecraft.util.ObjectIntIdentityMap;
 import net.minecraft.util.RegistryNamespaced;
+import net.minecraft.util.RegistrySimple;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.ModAPIManager;
@@ -58,9 +59,22 @@ public class RegistryUtils {
             BiMap map = (BiMap) regField.get(registry);
             ObjectIntIdentityMap underlyingIntegerMap = (ObjectIntIdentityMap) uimField.get(registry);
             
+            Field[] undmaparr = RegistrySimple.class.getDeclaredFields();
+            for (Field f : undmaparr) {
+            	if (f.getType().isAssignableFrom(Map.class)) {
+            		f.setAccessible(true);
+            		Map umap = (Map) f.get(registry);
+            		umap.remove(name);
+            		umap.put(name, object);
+            	}
+            }
+            
             underlyingIntegerMap.put(object, id);
+            map.remove(object);
+            map.forcePut(object, name);
             map.remove(name);
             map.forcePut(name, object);
+            
         }
 
         private static void alterDelegateChain(RegistryNamespaced registry, String id, Object object) {
@@ -88,7 +102,7 @@ public class RegistryUtils {
             replacements = new IdentityHashMap<RegistryNamespaced, Multimap<String, Object>>(2);
             MinecraftForge.EVENT_BUS.register(new RegistryUtils());
             try {
-                DelegateClass = (Class<RegistryDelegate<?>>) Class.forName("cpw.mods.fml.common.registry.RegistryDelegate$Delegate");
+                DelegateClass = (Class<RegistryDelegate<?>>) Class.forName(RegistryDelegate.Delegate.class.getName());
             } catch (Throwable e) {
                 Throwables.propagate(e);
             }
@@ -150,6 +164,8 @@ public class RegistryUtils {
         }
         reg.put(name, object);
         Repl.alterDelegateChain(registry, name, object);
+        
+        
     }
     
     private static IdentityHashMap<RegistryNamespaced, Multimap<String, Object>> replacements;

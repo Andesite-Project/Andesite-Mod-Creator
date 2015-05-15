@@ -8,11 +8,12 @@ import net.minecraft.block.Block;
 import info.varden.andesite.action.base.DataStreamActionWrapper;
 import info.varden.andesite.core.Action;
 import info.varden.andesite.core.ActionData;
+import info.varden.andesite.core.BlockAction;
 import info.varden.andesite.io.AndesiteIO;
 import info.varden.andesite.modloader.BlockWrapper;
 
 @ActionData(id = 1, version = 1)
-public class BlockStepSoundAction extends DataStreamActionWrapper implements Action {
+public class BlockStepSoundAction extends DataStreamActionWrapper implements Action, BlockAction {
     
     private String blockId;
     private String soundName;
@@ -68,6 +69,7 @@ public class BlockStepSoundAction extends DataStreamActionWrapper implements Act
         this.blockId = blockId;
     }
     
+    @Override
     public String getBlockId() {
         return this.blockId;
     }

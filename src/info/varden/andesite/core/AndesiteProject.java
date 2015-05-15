@@ -25,11 +25,11 @@ public class AndesiteProject {
      * Properties field
      */
     public ProjectProperties properties;
-    
+    public String author = "";
     
     private ArrayList<Screenshot> screenshots = new ArrayList<Screenshot>();
     private ArrayList<Action> actions = new ArrayList<Action>();
-    public String author = "";
+    private ArrayList<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
     
     /**
      * Adds a screenshot to this project's list of screenshots.
@@ -37,6 +37,7 @@ public class AndesiteProject {
      */
     public void addScreenshot(Screenshot screenshot) {
         this.screenshots.add(screenshot);
+        callChangeListeners();
     }
     
     /**
@@ -45,6 +46,7 @@ public class AndesiteProject {
      */
     public void removeScreenshot(int index) {
         this.screenshots.remove(index);
+        callChangeListeners();
     }
     
     /**
@@ -78,6 +80,7 @@ public class AndesiteProject {
      */
     public void swapScreenshotIndices(int a, int b) {
         Collections.swap(this.screenshots, a, b);
+        callChangeListeners();
     }
     
     /**
@@ -86,6 +89,7 @@ public class AndesiteProject {
      */
     public void addAction(Action action) {
         this.actions.add(action);
+        callChangeListeners();
     }
     
     /**
@@ -94,6 +98,7 @@ public class AndesiteProject {
      */
     public void removeAction(int index) {
         this.actions.remove(index);
+        callChangeListeners();
     }
     
     /**
@@ -118,5 +123,29 @@ public class AndesiteProject {
      */
     public int getActionCount() {
         return this.actions.size();
+    }
+    
+    /**
+     * Adds a change listener to the project.
+     * @param listener The change listener to add.
+     */
+    public void addChangeListener(ChangeListener listener) {
+        this.changeListeners.add(listener);
+    }
+    
+    /**
+     * Calls the onChanged function of all registered change listeners.
+     */
+    private void callChangeListeners() {
+        for (ChangeListener listener : this.changeListeners) {
+            listener.onChanged();
+        }
+    }
+    
+    /**
+     * Project change listener
+     */
+    public abstract static class ChangeListener {
+        public abstract void onChanged();
     }
 }
