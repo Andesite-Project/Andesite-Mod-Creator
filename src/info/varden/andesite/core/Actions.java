@@ -23,8 +23,9 @@
  */
 package info.varden.andesite.core;
 
-import info.varden.andesite.action.BlockLightValueAction;
+import info.varden.andesite.action.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -33,7 +34,14 @@ import java.util.HashMap;
  */
 public final class Actions {
     private static final HashMap<Integer, Class<? extends Action>> actionMap = new HashMap<Integer, Class<? extends Action>>() {{
-        put(BlockLightValueAction.class.getAnnotation(ActionData.class).id(), BlockLightValueAction.class);
+    	ArrayList<Class<? extends Action>> actionClasses = new ArrayList<Class<? extends Action>>() {{
+    		add(BlockLightValueAction.class);
+    		add(BlockStepSoundAction.class);
+    	}};
+    	
+    	for (Class<? extends Action> actionClass : actionClasses) {
+    		put(actionClass.getAnnotation(ActionData.class).id(), actionClass);
+    	}
     }};
     
     /**
