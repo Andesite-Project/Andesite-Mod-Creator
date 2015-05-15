@@ -11,6 +11,8 @@ Here are some of the goals we aim to reach:
 
 As the project matures, more features will be added, so check back often!
 
+The official IRC channel for the Andesite Project is #AndesiteProject on EsperNet (irc.esper.net).
+
 ## FAQ
 
 ### Can I redistribute this?
@@ -24,3 +26,7 @@ Andesite mods are not considered derivative works as the mods do not contain any
 ### When will this project be done?
 
 I have no idea. Maybe it never will. Anyone is welcome to help out, though! The main developer IDE is, at the moment, NetBeans.
+
+### I have a feature suggestion, what do I do?
+
+You can either create an issue on this GitHub project, create a pull request if you've got code (remember, it will be MIT licensed) or suggest it on the IRC channel.
