@@ -23,12 +23,18 @@
  */
 package info.varden.andesite.creator.gui.propertypanel;
 
+import info.varden.andesite.action.BlockHardnessAction;
 import info.varden.andesite.action.BlockLightValueAction;
+import info.varden.andesite.action.BlockResistanceAction;
+import info.varden.andesite.action.BlockSlipperinessAction;
+import info.varden.andesite.action.BlockStepSoundAction;
 import info.varden.andesite.core.Action;
 import info.varden.andesite.core.AndesiteProject;
 import info.varden.andesite.core.BlockAction;
 import info.varden.andesite.core.Utils;
 import info.varden.andesite.creator.UIUtils;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
@@ -61,11 +67,34 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                     if (act instanceof BlockLightValueAction) {
                         jButton2.setEnabled(true);
                         jSpinner1.setValue(((BlockLightValueAction) act).getLightValue() * 15F);
+                    } else if (act instanceof BlockStepSoundAction) {
+                        BlockStepSoundAction apa = (BlockStepSoundAction) act;
+                        jButton3.setEnabled(true);
+                        jComboBox1.setSelectedItem(apa.getSoundName());
+                        jComboBox2.setSelectedItem(apa.getBreakSound());
+                        jSpinner5.setValue(apa.getVolume() * 100F);
+                        jSpinner6.setValue(apa.getFrequency());
+                    } else if (act instanceof BlockResistanceAction) {
+                        jButton4.setEnabled(true);
+                        jSpinner2.setValue(((BlockResistanceAction) act).getResistance());
+                    } else if (act instanceof BlockHardnessAction) {
+                        jButton5.setEnabled(true);
+                        jSpinner3.setValue(((BlockHardnessAction) act).getHardness());
+                    } else if (act instanceof BlockSlipperinessAction) {
+                        jButton6.setEnabled(true);
+                        jSpinner4.setValue(((BlockSlipperinessAction) act).getSlipperiness() * 100F);
                     }
                 }
             }
         }
-        jSpinner1.addChangeListener(new MainChangeListener());
+        jSpinner1.addChangeListener(new LightValueChangeListener());
+        jSpinner5.addChangeListener(new StepSoundChangeListener());
+        jSpinner6.addChangeListener(new StepSoundChangeListener());
+        jComboBox1.addItemListener(new StepSoundItemListener());
+        jComboBox2.addItemListener(new StepSoundItemListener());
+        jSpinner2.addChangeListener(new ResistanceChangeListener());
+        jSpinner3.addChangeListener(new HardnessChangeListener());
+        jSpinner4.addChangeListener(new SlipperinessChangeListener());
     }
 
     /**
@@ -78,8 +107,6 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
         jComboBox1 = new javax.swing.JComboBox();
@@ -91,7 +118,6 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
         jSpinner4 = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -101,23 +127,23 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jSpinner5 = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
+        jSpinner6 = new javax.swing.JSpinner();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("minecraft:dirt");
 
-        jLabel2.setText("Block name:");
-
-        jTextField1.setText("Dirt");
-
         jLabel3.setText("Light value:");
+        jLabel3.setToolTipText("The light value determines the luminosity of the block. Valid values range from 0 (no light emission) to 15 (glows bright).");
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 15, 1));
         UIUtils.setSpinnerEditCommits(jSpinner1, true);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Stone", "Wood", "Gravel", "Grass", "Stone", "Cloth", "Sand", "Snow", "Ladder" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "stone", "wood", "gravel", "grass", "cloth", "sand", "snow", "ladder" }));
 
         jLabel4.setText("Step sound:");
-        jLabel4.setToolTipText("");
+        jLabel4.setToolTipText("Step sound determines the sound that is played when a player or mob walks across the block.");
 
         jSpinner2.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), Float.valueOf(0.0f), null, Float.valueOf(0.1f)));
 
@@ -133,31 +159,62 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
 
         jLabel8.setText("%");
 
-        jButton1.setText("Reset");
-        jButton1.setEnabled(false);
-
         jButton2.setText("Reset");
         jButton2.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Reset");
         jButton3.setEnabled(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Reset");
         jButton4.setEnabled(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Reset");
         jButton5.setEnabled(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Reset");
         jButton6.setEnabled(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Stone", "Wood", "Gravel", "Grass", "Stone", "Cloth", "Sand", "Snow", "Ladder" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "stone", "wood", "gravel", "grass", "cloth", "sand", "snow", "ladder" }));
 
         jLabel9.setText("Break sound:");
+        jLabel9.setToolTipText("Break sound determines the sound that is played when placed or broken by a player.");
 
         jSpinner5.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
         jLabel10.setText("Volume:");
+        jLabel10.setToolTipText("Volume determines the loudness of the step and break sounds.");
+
+        jSpinner6.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.0f), null, null, Float.valueOf(0.1f)));
+
+        jLabel11.setText("Frequency:");
+        jLabel11.setToolTipText("Frequency determines the pitch of the step and break sounds.");
+
+        jLabel12.setText("%");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -171,14 +228,14 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
                         .addGap(133, 133, 133)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -189,16 +246,18 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                                 .addComponent(jButton6))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, 415, Short.MAX_VALUE)
                                     .addComponent(jSpinner3, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSpinner2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 402, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jSpinner1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jSpinner5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jSpinner5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel12))
+                                    .addComponent(jSpinner6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,19 +269,15 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jButton2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
@@ -233,11 +288,13 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
@@ -253,35 +310,180 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jButton6))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private class MainChangeListener implements ChangeListener {
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Reset light value action
+        BlockLightValueAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockLightValueAction.class);
+        for (BlockLightValueAction act : acts) {
+            this.project.removeAction(act);
+            this.actions.remove(act);
+        }
+        jButton2.setEnabled(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Reset step sound action
+        BlockStepSoundAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockStepSoundAction.class);
+        for (BlockStepSoundAction act : acts) {
+            this.project.removeAction(act);
+            this.actions.remove(act);
+        }
+        jButton3.setEnabled(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Reset resistance action
+        BlockResistanceAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockResistanceAction.class);
+        for (BlockResistanceAction act : acts) {
+            this.project.removeAction(act);
+            this.actions.remove(act);
+        }
+        jButton4.setEnabled(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // Reset hardness action
+        BlockHardnessAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockHardnessAction.class);
+        for (BlockHardnessAction act : acts) {
+            this.project.removeAction(act);
+            this.actions.remove(act);
+        }
+        jButton5.setEnabled(false);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // Reset slipperiness action
+        BlockSlipperinessAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockSlipperinessAction.class);
+        for (BlockSlipperinessAction act : acts) {
+            this.project.removeAction(act);
+            this.actions.remove(act);
+        }
+        jButton5.setEnabled(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private class LightValueChangeListener implements ChangeListener {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            if (e.getSource() instanceof JSpinner) {
-                JSpinner source = (JSpinner) e.getSource();
-                if (e.getSource() == jSpinner1) {
-                    jButton2.setEnabled(true);
-                    BlockLightValueAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockLightValueAction.class);
-                    if (acts.length > 0) {
-                        acts[0].setLightValue(((Integer) jSpinner1.getValue()).floatValue() / 15F);
-                        System.out.println(acts[0].getLightValue());
-                    } else {
-                        BlockLightValueAction act = BlockLightValueAction.create(blockId, ((Integer) jSpinner1.getValue()).floatValue() / 15F);
-                        actions.add(act);
-                        project.addAction(act);
-                    }
-                }
+            jButton2.setEnabled(true);
+            BlockLightValueAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockLightValueAction.class);
+            
+            float lightValue = ((Integer) jSpinner1.getValue()).floatValue() / 15F;
+            
+            if (acts.length > 0) {
+                acts[0].setLightValue(lightValue);
+            } else {
+                BlockLightValueAction act = BlockLightValueAction.create(blockId, lightValue);
+                actions.add(act);
+                project.addAction(act);
+            }
+        }
+        
+    }
+    
+    private class StepSoundChangeListener implements ChangeListener {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            stepSoundChanged();
+        }
+        
+    }
+    
+    private class StepSoundItemListener implements ItemListener {
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            stepSoundChanged();
+        }
+
+    }
+    
+    private void stepSoundChanged() {
+        jButton3.setEnabled(true);
+        BlockStepSoundAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockStepSoundAction.class);
+        
+        String soundName = ((String) jComboBox1.getSelectedItem()).toLowerCase();
+        String breakSound = ((String) jComboBox2.getSelectedItem()).toLowerCase();
+        float volume = ((Integer) jSpinner5.getValue()).floatValue() / 100F;
+        float freq = (Float) jSpinner6.getValue();
+        
+        if (acts.length > 0) {
+            acts[0].setSoundName(soundName);
+            acts[0].setBreakSound(breakSound);
+            acts[0].setVolume(volume);
+            acts[0].setFrequency(freq);
+        } else {
+            BlockStepSoundAction act = BlockStepSoundAction.create(blockId, soundName, breakSound, volume, freq);
+            actions.add(act);
+            project.addAction(act);
+        }
+    }
+    
+    private class ResistanceChangeListener implements ChangeListener {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            jButton4.setEnabled(true);
+            BlockResistanceAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockResistanceAction.class);
+            
+            float resistance = (Float) jSpinner2.getValue();
+            
+            if (acts.length > 0) {
+                acts[0].setResistance(resistance);
+            } else {
+                BlockResistanceAction act = BlockResistanceAction.create(blockId, resistance);
+                actions.add(act);
+                project.addAction(act);
+            }
+        }
+        
+    }
+    
+    private class HardnessChangeListener implements ChangeListener {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            jButton5.setEnabled(true);
+            BlockHardnessAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockHardnessAction.class);
+            
+            float hardness = (Float) jSpinner3.getValue();
+            
+            if (acts.length > 0) {
+                acts[0].setHardness(hardness);
+            } else {
+                BlockHardnessAction act = BlockHardnessAction.create(blockId, hardness);
+                actions.add(act);
+                project.addAction(act);
+            }
+        }
+        
+    }
+    
+    private class SlipperinessChangeListener implements ChangeListener {
+
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            jButton6.setEnabled(true);
+            BlockSlipperinessAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockSlipperinessAction.class);
+            
+            float value = (Float) jSpinner4.getValue() / 100F;
+            
+            if (acts.length > 0) {
+                acts[0].setSlipperiness(value);
+            } else {
+                BlockSlipperinessAction act = BlockSlipperinessAction.create(blockId, value);
+                actions.add(act);
+                project.addAction(act);
             }
         }
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -291,7 +493,8 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -304,6 +507,6 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JSpinner jSpinner5;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JSpinner jSpinner6;
     // End of variables declaration//GEN-END:variables
 }

@@ -37,6 +37,8 @@ public final class Actions {
         ArrayList<Class<? extends Action>> actionClasses = new ArrayList<Class<? extends Action>>() {{
             add(BlockLightValueAction.class);
             add(BlockStepSoundAction.class);
+            add(BlockResistanceAction.class);
+            add(BlockHardnessAction.class);
         }};
         
         for (Class<? extends Action> actionClass : actionClasses) {

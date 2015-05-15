@@ -102,6 +102,15 @@ public class AndesiteProject {
     }
     
     /**
+     * Removes an action from the action list.
+     * @param action The action to remove
+     */
+    public void removeAction(Action action) {
+        this.actions.remove(action);
+        callChangeListeners();
+    }
+    
+    /**
      * Returns a list of all actions in this project.
      * @return List of actions
      */

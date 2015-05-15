@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import net.minecraft.block.Block;
 import info.varden.andesite.action.base.DataStreamActionWrapper;
 import info.varden.andesite.core.Action;
 import info.varden.andesite.core.ActionData;
@@ -23,7 +22,7 @@ public class BlockStepSoundAction extends DataStreamActionWrapper implements Act
 
     @Override
     public void execute() {
-        BlockWrapper.getFor(blockId).setStepSound(new Block.SoundType(this.soundName, this.volume, this.freq) {
+        BlockWrapper.getFor(blockId).setStepSound(new net.minecraft.block.Block.SoundType(this.soundName, this.volume, this.freq) {
             @Override
             public String getBreakSound() {
                 return "dig." + breakSound;
