@@ -11,8 +11,7 @@ public class BlockLightValueAction extends IdDataAction<Float> implements Action
 
     @Override
     public void execute() {
-        BlockWrapper b = BlockWrapper.getFor(getID());
-        b.setLightLevel(getData().floatValue());
+        BlockWrapper.getFor(getID()).setLightLevel(getData().floatValue());
     }
     
     public static BlockLightValueAction create(String blockId, float lightValue) {

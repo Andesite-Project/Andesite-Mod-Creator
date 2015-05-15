@@ -23,8 +23,7 @@ public class BlockStepSoundAction extends DataStreamActionWrapper implements Act
 
     @Override
     public void execute() {
-        BlockWrapper b = BlockWrapper.getFor(blockId);
-        b.setStepSound(new Block.SoundType(this.soundName, this.volume, this.freq) {
+        BlockWrapper.getFor(blockId).setStepSound(new Block.SoundType(this.soundName, this.volume, this.freq) {
             @Override
             public String getBreakSound() {
                 return "dig." + breakSound;
