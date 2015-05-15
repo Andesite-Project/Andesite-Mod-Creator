@@ -34,14 +34,14 @@ import java.util.HashMap;
  */
 public final class Actions {
     private static final HashMap<Integer, Class<? extends Action>> actionMap = new HashMap<Integer, Class<? extends Action>>() {{
-    	ArrayList<Class<? extends Action>> actionClasses = new ArrayList<Class<? extends Action>>() {{
-    		add(BlockLightValueAction.class);
-    		add(BlockStepSoundAction.class);
-    	}};
-    	
-    	for (Class<? extends Action> actionClass : actionClasses) {
-    		put(actionClass.getAnnotation(ActionData.class).id(), actionClass);
-    	}
+        ArrayList<Class<? extends Action>> actionClasses = new ArrayList<Class<? extends Action>>() {{
+            add(BlockLightValueAction.class);
+            add(BlockStepSoundAction.class);
+        }};
+        
+        for (Class<? extends Action> actionClass : actionClasses) {
+            put(actionClass.getAnnotation(ActionData.class).id(), actionClass);
+        }
     }};
     
     /**

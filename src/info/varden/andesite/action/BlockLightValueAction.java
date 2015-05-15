@@ -15,26 +15,26 @@ public class BlockLightValueAction extends IdDataAction<Float> implements Action
     }
     
     public static BlockLightValueAction create(String blockId, float lightValue) {
-    	BlockLightValueAction a = new BlockLightValueAction();
-    	a.setBlockId(blockId);
-    	a.setLightValue(lightValue);
-    	return a;
+        BlockLightValueAction a = new BlockLightValueAction();
+        a.setBlockId(blockId);
+        a.setLightValue(lightValue);
+        return a;
     }
     
     public void setBlockId(String id) {
-    	setID(id);
+        setID(id);
     }
     
     public String getBlockId() {
-    	return getID();
+        return getID();
     }
     
     public void setLightValue(float lightValue) {
-    	setData(Float.valueOf(lightValue));
+        setData(Float.valueOf(lightValue));
     }
     
     public float getLightValue() {
-    	return getData().floatValue();
+        return getData().floatValue();
     }
 
 }
