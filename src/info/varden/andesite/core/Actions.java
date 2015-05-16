@@ -24,7 +24,15 @@
 package info.varden.andesite.core;
 
 import info.varden.andesite.action.*;
+import info.varden.andesite.io.AndesiteIO;
+import info.varden.andesite.io.Serialization;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,6 +47,7 @@ public final class Actions {
             add(BlockStepSoundAction.class);
             add(BlockSlipperinessAction.class);
             add(BlockHardnessAction.class);
+            add(BlockParticleGravityAction.class);
         }};
         
         for (Class<? extends Action> actionClass : actionClasses) {
@@ -57,5 +66,20 @@ public final class Actions {
         } else {
             return null;
         }
+    }
+    
+    public static Action readFromInput(DataInputStream input) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, IOException {
+        int actionID = input.readInt();
+        Class<? extends Action> actionClass = findClassById(actionID);
+        if (actionClass == null) {
+            return null;
+        }
+        return Serialization.readFromInput(input, actionClass);
+    }
+    
+    public static void writeToOutput(Action action, DataOutputStream output) throws IOException {
+        ActionData data = action.getClass().getAnnotation(ActionData.class);
+        output.writeInt(data.id());
+        Serialization.writeToOutput(action, output);
     }
 }

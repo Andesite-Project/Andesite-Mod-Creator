@@ -11,6 +11,7 @@ import info.varden.andesite.core.Actions;
 import info.varden.andesite.core.AndesiteProject;
 import info.varden.andesite.core.ProjectProperties;
 import info.varden.andesite.core.Screenshot;
+import info.varden.andesite.core.VariableVersionParser;
 import info.varden.andesite.creator.CipheredKeyPair;
 
 import java.awt.image.BufferedImage;
@@ -331,10 +332,7 @@ public class AndesiteIO {
         // Action data
         dos.writeInt(actions.length);
         for (Action a : actions) {
-            ActionData data = a.getClass().getAnnotation(ActionData.class);
-            dos.writeInt(data.id());
-            byte[] actionData = a.toData();
-            writeByteArray(actionData, dos);
+            Actions.writeToOutput(a, dos);
         }
         
         dos.close();
@@ -398,21 +396,17 @@ public class AndesiteIO {
         int acCount = dis.readInt();
         
         for (int i = 0; i < acCount; i++) {
-            int actionID = dis.readInt();
-            byte[] blockData = readByteArray(dis);
-            Class<? extends Action> actionClass = Actions.findClassById(actionID);
-            if (actionClass == null) {
+            Action act = Actions.readFromInput(dis);
+            if (act == null) {
+                proj.hasSupportIssues = true;
                 continue;
             }
-            Constructor constructor = actionClass.getConstructors()[0];
-            Object action = constructor.newInstance();
-            if (action instanceof Action) {
-                Method parse = actionClass.getMethod("parse", byte[].class);
-                Action initObj = (Action) parse.invoke((Action) action, new Object[] {blockData});
-                proj.addAction((Action) initObj);
-            } else {
-                throw new ClassCastException("Action is not an action");
+            if (act instanceof VariableVersionParser) {
+                if (!((VariableVersionParser) act).isSupported()) {
+                    proj.hasSupportIssues = true;
+                }
             }
+            proj.addAction(act);
         }
         
         dis.close();

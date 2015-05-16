@@ -30,6 +30,7 @@ public class AndesiteProject {
     private ArrayList<Screenshot> screenshots = new ArrayList<Screenshot>();
     private ArrayList<Action> actions = new ArrayList<Action>();
     private ArrayList<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
+    public boolean hasSupportIssues = false;
     
     /**
      * Adds a screenshot to this project's list of screenshots.
