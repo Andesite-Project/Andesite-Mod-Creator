@@ -6,7 +6,7 @@ import info.varden.andesite.core.ActionData;
 import info.varden.andesite.core.BlockAction;
 import info.varden.andesite.modloader.BlockWrapper;
 
-@ActionData(id = 5, version = 1)
+@ActionData(id = 2, version = 1)
 public class BlockSlipperinessAction extends IdDataAction<Float> implements Action, BlockAction {
 
     @Override

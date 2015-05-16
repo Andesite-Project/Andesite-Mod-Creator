@@ -33,27 +33,7 @@ public class BlockWrapper {
     }
     
     public BlockWrapper setHardness(float hardness) {
-        float resistance = -1F;
-        try {
-            Field[] fs = Block.class.getDeclaredFields();
-            int floatPassed = 0;
-            for (Field f : fs) {
-                if (f.getType() == Float.class) {
-                    if (floatPassed == 1) {
-                        f.setAccessible(true);
-                        resistance = (Float) f.get(this.block);
-                        break;
-                    }
-                    floatPassed++;
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
         this.block.setHardness(hardness);
-        if (resistance != -1F) {
-            setResistance(resistance);
-        }
         return this;
     }
     

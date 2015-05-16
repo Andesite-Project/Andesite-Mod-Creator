@@ -25,7 +25,6 @@ package info.varden.andesite.creator.gui.propertypanel;
 
 import info.varden.andesite.action.BlockHardnessAction;
 import info.varden.andesite.action.BlockLightValueAction;
-import info.varden.andesite.action.BlockResistanceAction;
 import info.varden.andesite.action.BlockSlipperinessAction;
 import info.varden.andesite.action.BlockStepSoundAction;
 import info.varden.andesite.core.Action;
@@ -74,12 +73,10 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                         jComboBox2.setSelectedItem(apa.getBreakSound());
                         jSpinner5.setValue(apa.getVolume() * 100F);
                         jSpinner6.setValue(apa.getFrequency());
-                    } else if (act instanceof BlockResistanceAction) {
-                        jButton4.setEnabled(true);
-                        jSpinner2.setValue(((BlockResistanceAction) act).getResistance());
                     } else if (act instanceof BlockHardnessAction) {
-                        jButton5.setEnabled(true);
+                        jButton4.setEnabled(true);
                         jSpinner3.setValue(((BlockHardnessAction) act).getHardness());
+                        jSpinner2.setValue(((BlockHardnessAction) act).getResistance());
                     } else if (act instanceof BlockSlipperinessAction) {
                         jButton6.setEnabled(true);
                         jSpinner4.setValue(((BlockSlipperinessAction) act).getSlipperiness() * 100F);
@@ -92,7 +89,7 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
         jSpinner6.addChangeListener(new StepSoundChangeListener());
         jComboBox1.addItemListener(new StepSoundItemListener());
         jComboBox2.addItemListener(new StepSoundItemListener());
-        jSpinner2.addChangeListener(new ResistanceChangeListener());
+        jSpinner2.addChangeListener(new HardnessChangeListener());
         jSpinner3.addChangeListener(new HardnessChangeListener());
         jSpinner4.addChangeListener(new SlipperinessChangeListener());
     }
@@ -121,7 +118,6 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
@@ -183,14 +179,6 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setText("Reset");
-        jButton5.setEnabled(false);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         jButton6.setText("Reset");
         jButton6.setEnabled(false);
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -238,12 +226,6 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                             .addComponent(jLabel11))
                         .addGap(133, 133, 133)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSpinner4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, 415, Short.MAX_VALUE)
@@ -259,9 +241,14 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jSpinner4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton6)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -269,48 +256,49 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinner5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)))
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(228, 228, 228)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jButton6))
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addGap(237, 237, 237))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -336,23 +324,13 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Reset resistance action
-        BlockResistanceAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockResistanceAction.class);
-        for (BlockResistanceAction act : acts) {
-            this.project.removeAction(act);
-            this.actions.remove(act);
-        }
-        jButton4.setEnabled(false);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // Reset hardness action
         BlockHardnessAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockHardnessAction.class);
         for (BlockHardnessAction act : acts) {
             this.project.removeAction(act);
             this.actions.remove(act);
         }
-        jButton5.setEnabled(false);
-    }//GEN-LAST:event_jButton5ActionPerformed
+        jButton4.setEnabled(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // Reset slipperiness action
@@ -361,7 +339,7 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
             this.project.removeAction(act);
             this.actions.remove(act);
         }
-        jButton5.setEnabled(false);
+        jButton6.setEnabled(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private class LightValueChangeListener implements ChangeListener {
@@ -423,39 +401,21 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
         }
     }
     
-    private class ResistanceChangeListener implements ChangeListener {
-
-        @Override
-        public void stateChanged(ChangeEvent e) {
-            jButton4.setEnabled(true);
-            BlockResistanceAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockResistanceAction.class);
-            
-            float resistance = (Float) jSpinner2.getValue();
-            
-            if (acts.length > 0) {
-                acts[0].setResistance(resistance);
-            } else {
-                BlockResistanceAction act = BlockResistanceAction.create(blockId, resistance);
-                actions.add(act);
-                project.addAction(act);
-            }
-        }
-        
-    }
-    
     private class HardnessChangeListener implements ChangeListener {
 
         @Override
         public void stateChanged(ChangeEvent e) {
-            jButton5.setEnabled(true);
+            jButton4.setEnabled(true);
             BlockHardnessAction[] acts = Utils.getActionsOfType(actions.toArray(new BlockAction[0]), BlockHardnessAction.class);
             
             float hardness = (Float) jSpinner3.getValue();
+            float resistance = (Float) jSpinner2.getValue();
             
             if (acts.length > 0) {
                 acts[0].setHardness(hardness);
+                acts[0].setResistance(resistance);
             } else {
-                BlockHardnessAction act = BlockHardnessAction.create(blockId, hardness);
+                BlockHardnessAction act = BlockHardnessAction.create(blockId, hardness, resistance);
                 actions.add(act);
                 project.addAction(act);
             }
@@ -487,7 +447,6 @@ public class BlockPropertyPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
