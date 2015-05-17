@@ -8,14 +8,14 @@ package info.varden.andesite.creator;
 import info.varden.andesite.creator.gui.CreatorGui;
 
 /**
- *
+ * Creator main class.
  * @author Marius
  */
 public class Main {
 
     /**
      * Launches the GUI.
-     * @param args the command line arguments
+     * @param args The command line arguments
      */
     public static void main(String[] args) {
         CreatorGui.main(args);

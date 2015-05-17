@@ -28,12 +28,20 @@ import javax.swing.JSpinner;
 import javax.swing.text.DefaultFormatter;
 
 /**
- *
+ * Andesite Project user interface utilities.
  * @author Marius
  */
 public final class UIUtils {
+    /**
+     * Initializes UIUtils. UIUtils is not initializable.
+     */
     private UIUtils() {}
     
+    /**
+     * Configures a JSpinner to invoke the registered change listeners when the spinner value updates.
+     * @param spinner The JSpinner to configure
+     * @param commits Whether or not the JSpinner should call change listeners on value change
+     */
     public static void setSpinnerEditCommits(JSpinner spinner, boolean commits) {
         ((DefaultFormatter) ((JFormattedTextField) spinner.getEditor().getComponent(0)).getFormatter()).setCommitsOnValidEdit(true);
     }

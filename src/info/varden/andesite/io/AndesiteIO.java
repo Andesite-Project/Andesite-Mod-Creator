@@ -503,6 +503,14 @@ public class AndesiteIO {
         return keybase;
     }
     
+    /**
+     * Writes an encrypted private-public RSA keypair database to an output stream. Stream is not closed.
+     * @param keys The keys to write
+     * @param out The output stream to write to
+     * @throws IOException I/O operation fails
+     * @throws NoSuchAlgorithmException The RSA algorithm does not exist on this machine
+     * @throws InvalidKeySpecException The RSA key specification does not exist on this machine
+     */
     public static void writeKeybase(HashMap<String, CipheredKeyPair> keys, OutputStream out) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(keys.size());
@@ -524,6 +532,15 @@ public class AndesiteIO {
         }
     }
     
+    /**
+     * Writes an encrypted private-public RSA keypair database to a file.
+     * @param keys The keys to write
+     * @param f The file to write to
+     * @throws FileNotFoundException The specified file does not exist.
+     * @throws IOException I/O operation fails
+     * @throws NoSuchAlgorithmException The RSA algorithm does not exist on this machine
+     * @throws InvalidKeySpecException The RSA key specification does not exist on this machine
+     */
     public static void writeKeybase(HashMap<String, CipheredKeyPair> keys, File f) throws FileNotFoundException, IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         FileOutputStream fos = new FileOutputStream(f);
         writeKeybase(keys, fos);

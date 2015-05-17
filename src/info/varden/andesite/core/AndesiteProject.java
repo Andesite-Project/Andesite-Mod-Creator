@@ -22,14 +22,28 @@ public class AndesiteProject {
     }
     
     /**
-     * Properties field
+     * Properties field.
      */
     public ProjectProperties properties;
+    /**
+     * Author of the Andesite mod.
+     */
     public String author = "";
-    
+    /**
+     * List of screenshots in the project.
+     */
     private ArrayList<Screenshot> screenshots = new ArrayList<Screenshot>();
+    /**
+     * List of actions in the project.
+     */
     private ArrayList<Action> actions = new ArrayList<Action>();
+    /**
+     * List of change listeners for this AndesiteProject instance.
+     */
     private ArrayList<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
+    /**
+     * Whether or not this project has compatibility issues with the current Andesite version.
+     */
     public boolean hasSupportIssues = false;
     
     /**

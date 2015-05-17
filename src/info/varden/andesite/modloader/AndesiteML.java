@@ -26,22 +26,52 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The Andesite Mod Loader main mod class for Minecraft Forge.
+ * @author Marius
+ */
 @Mod(modid = AndesiteML.MODID, name = AndesiteML.NAME, version = AndesiteML.VERSION)
 public class AndesiteML {
+    /**
+     * Andesite Mod Loader mod ID.
+     */
     public static final String MODID = "andesite";
+    /**
+     * Andesite Mod Loader mod name.
+     */
     public static final String NAME = "Andesite Mod Loader";
+    /**
+     * Andesite Mod Loader version.
+     */
     public static final String VERSION = "0.0.1 Dev Alpha";
     
+    /**
+     * Current Andesite version number.
+     */
     public static final int ANDESITE_VERSION = 1;
     
+    /**
+     * Main logger.
+     */
     private static Logger andesiteLog = null;
+    /**
+     * Currently loading Andesite mod.
+     */
     private static String currentlyLoading = null;
     
+    /**
+     * Andesite Mod Loader pre-initialization.
+     * @param event FML pre-initialization event
+     */
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         andesiteLog = event.getModLog();
     }
     
+    /**
+     * Andesite Mod Loader post-initialization.
+     * @param event FML post-initialization event
+     */
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         File[] mods = getModDir().listFiles();
@@ -114,25 +144,45 @@ public class AndesiteML {
         }
     }
     
+    /**
+     * Gets the line prefix for the main logger.
+     * @return Line prefix
+     */
     private static String getLogPrefix() {
         if (currentlyLoading == null) {
             return "<core>: ";
         }
-        return "[" + currentlyLoading + "]";
+        return "[" + currentlyLoading + "] ";
     }
     
+    /**
+     * Writes an information level message to the logger.
+     * @param msg The message to write
+     */
     public static void info(String msg) {
         andesiteLog.info(getLogPrefix() + msg);
     }
     
+    /**
+     * Writes a warning level message to the logger.
+     * @param msg The message to write
+     */
     public static void warn(String msg) {
         andesiteLog.warn(getLogPrefix() + msg);
     }
     
+    /**
+     * Writes an error level message to the logger.
+     * @param msg The message to write
+     */
     public static void error(String msg) {
         andesiteLog.error(getLogPrefix() + msg);
     }
     
+    /**
+     * Returns the Andesite Mod directory.
+     * @return Directory containing Andesite mods
+     */
     private static File getModDir() {
         return new File(Minecraft.getMinecraft().mcDataDir, "mods");
     }

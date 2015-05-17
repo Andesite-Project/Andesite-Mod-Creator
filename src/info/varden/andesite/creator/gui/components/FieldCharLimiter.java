@@ -14,6 +14,9 @@ import javax.swing.text.PlainDocument;
  * @author Marius
  */
 public class FieldCharLimiter extends PlainDocument {
+    /**
+     * The character limit.
+     */
     private final int limit;
     
     /**

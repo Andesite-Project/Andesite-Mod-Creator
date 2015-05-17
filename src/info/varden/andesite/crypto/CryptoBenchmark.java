@@ -35,10 +35,10 @@ import java.security.NoSuchAlgorithmException;
 public final class CryptoBenchmark {
     /**
      * Determines the speed of RSA keypair generation.
-     * @param keysize The size of the RSA keys to generate.
-     * @param iterations The number of RSA keys to generate.
-     * @return A set of benchmark results, index 0 being the fastest and index 1 being the slowest.
-     * @throws NoSuchAlgorithmException 
+     * @param keysize The size of the RSA keys to generate
+     * @param iterations The number of RSA keys to generate
+     * @return A set of benchmark results, index 0 being the fastest and index 1 being the slowest
+     * @throws NoSuchAlgorithmException The RSA algorithm is not present on this machine
      */
     public static BenchmarkResults getRSAKeyGenSpeed(int keysize, int iterations) throws NoSuchAlgorithmException {
         long[] results = new long[iterations];
@@ -53,10 +53,22 @@ public final class CryptoBenchmark {
         return new BenchmarkResults(results);
     }
     
+    /**
+     * Prepares for benchmarking.
+     * @throws NoSuchAlgorithmException The RSA algorithm is not present on this machine
+     */
     public static void initializeEncrypter() throws NoSuchAlgorithmException {
         getRSAKeyGenSpeed(512, 10);
     }
     
+    /**
+     * Converts the keygen results from one key size to another.
+     * @param result The keygen result
+     * @param bchKeysize The benchmarked key size
+     * @param targetKeysize The target key size
+     * @return Estimated keygen result for the target key size
+     * @throws InvalidKeyException Key size must be a tuple of two between 512 and 8192
+     */
     public static double getRSACalcConvKeysizeSeconds(double result, int bchKeysize, int targetKeysize) throws InvalidKeyException {
         double baseFactor;
         switch (bchKeysize) {
@@ -94,6 +106,12 @@ public final class CryptoBenchmark {
         }
     }
     
+    /**
+     * Returns the time scaling factor for a given key size. Deprecated; please use getRSACalcConvKeysizeSeconds instead.
+     * @param x The key size
+     * @return The time scaling factor for this key size
+     */
+    @Deprecated
     private static double calcRSAMsecForXOnDev(double x) {
         return (0.000000000000003D * Math.pow(x, 5D)) + (0.000000000005376D * Math.pow(x, 4D)) - (0.000000140149253D * Math.pow(x, 3D)) + (0.000169057576429D * Math.pow(x, 2D)) + (0.036116245814768D * x) - 5.000000000000882D;
     }

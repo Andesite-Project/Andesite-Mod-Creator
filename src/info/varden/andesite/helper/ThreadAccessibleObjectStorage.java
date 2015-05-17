@@ -24,20 +24,35 @@
 package info.varden.andesite.helper;
 
 /**
- *
+ * Class that allows getting and setting of objects in a final context.
  * @author Marius
  */
 public class ThreadAccessibleObjectStorage<T> {
+    /**
+     * The current data.
+     */
     private volatile T object;
     
+    /**
+     * Initializes the storage with initial data.
+     * @param init The initial data
+     */
     public ThreadAccessibleObjectStorage(T init) {
         this.object = init;
     }
     
+    /**
+     * Sets the stored data.
+     * @param object The data to set
+     */
     public void set(T object) {
         this.object = object;
     }
     
+    /**
+     * Gets the stored data.
+     * @return The data
+     */
     public T get() {
         return this.object;
     }

@@ -33,19 +33,45 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 /**
- *
+ * Popup progress window for performing lengthy tasks.
  * @author Marius
  */
 public abstract class ProgressWindow<T> extends JDialog {
+    /**
+     * Base JPanel.
+     */
     private JPanel basePanel;
+    /**
+     * Progress bar.
+     */
     private JProgressBar progress;
-    
+    /**
+     * List of steps.
+     */
     private final JLabel[] steps;
+    /**
+     * Current step.
+     */
     private int currentStep = 0;
     
+    /**
+     * Callback on completion.
+     * @param results User-defined results
+     */
     public abstract void onComplete(T results);
+    /**
+     * Gets the task to be done.
+     * @return The lengthy task
+     */
     public abstract Task getTask();
     
+    /**
+     * Initializes the progress window.
+     * @param parent Parent frame, if any
+     * @param parent1 Parent dialog, if any
+     * @param title Window title
+     * @param steps List of steps to perform
+     */
     public ProgressWindow(JFrame parent, JDialog parent1, String title, String[] steps) {
         super(parent, true);
         if (steps.length <= 0) {
@@ -59,6 +85,9 @@ public abstract class ProgressWindow<T> extends JDialog {
         }
     }
     
+    /**
+     * Skips to the next step
+     */
     public void nextStep() {
         currentStep++;
         SwingUtilities.invokeLater(new Runnable() {
@@ -80,6 +109,10 @@ public abstract class ProgressWindow<T> extends JDialog {
         
     }
     
+    /**
+     * Display the window and start the task.
+     * @return Whether or not the task was started because of the presence of a task to perform
+     */
     public boolean performTaskThreaded() {
         final Task task = getTask();
         if (task == null) {
@@ -104,6 +137,11 @@ public abstract class ProgressWindow<T> extends JDialog {
         return true;
     }
     
+    /**
+     * Initializes dialog components.
+     * @param title Dialog title
+     * @param steps List of steps to perform
+     */
     private void initComponents(String title, String[] steps) {
         for (int i = 0; i < steps.length; i++) {
             this.steps[i] = new JLabel();
@@ -174,7 +212,14 @@ public abstract class ProgressWindow<T> extends JDialog {
         pack();
     }
     
+    /**
+     * Lengthy runnable task.
+     */
     public abstract class Task {
+        /**
+         * Runs the task and returns results of generic type T.
+         * @return Task results
+         */
         public abstract T run();
     }
 }

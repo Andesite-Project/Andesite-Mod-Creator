@@ -10,18 +10,41 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+/**
+ * Action that determines the hardness and resistance of a given block.
+ * @author Marius
+ */
 @ActionData(id = 3, version = 1)
 public class BlockHardnessAction extends DataStreamActionWrapper implements Action, BlockAction {
     
+    /**
+     * The block ID for this action.
+     */
     private String blockId;
+    /**
+     * Resistance value for the given block.
+     */
     private float resistance;
+    /**
+     * Hardness value for the given block.
+     */
     private float hardness;
 
+    /**
+     * Executes the action.
+     */
     @Override
     public void execute() {
         BlockWrapper.getFor(blockId).setHardness(hardness).setResistance(resistance);
     }
     
+    /**
+     * Creates an instance of BlockHardnessAction.
+     * @param blockId The block ID this action applies to
+     * @param hardness The hardness of the block
+     * @param resistance The resistance of the block
+     * @return An instance of BlockHardnessAction with the given hardness and resistance values.
+     */
     public static BlockHardnessAction create(String blockId, float hardness, float resistance) {
         BlockHardnessAction a = new BlockHardnessAction();
         a.setBlockId(blockId);
@@ -30,31 +53,61 @@ public class BlockHardnessAction extends DataStreamActionWrapper implements Acti
         return a;
     }
     
+    /**
+     * Sets the block ID this action applies to.
+     * @param id The block ID to set
+     */
     public void setBlockId(String id) {
         this.blockId = id;
     }
     
+    /**
+     * Gets the block ID this action applies to.
+     * @return The block ID
+     */
     @Override
     public String getBlockId() {
         return this.blockId;
     }
     
+    /**
+     * Sets the hardness value for the given block.
+     * @param hardness The hardness value to set
+     */
     public void setHardness(float hardness) {
         this.hardness = hardness;
     }
     
+    /**
+     * Gets the hardness value for the given block.
+     * @return The hardness value
+     */
     public float getHardness() {
         return this.hardness;
     }
     
+    /**
+     * Sets the resistance value for the given block.
+     * @param resistance The resistance value to set
+     */
     public void setResistance(float resistance) {
         this.resistance = resistance;
     }
     
+    /**
+     * Gets the resistance value for the given block.
+     * @return The resistance value
+     */
     public float getResistance() {
         return this.resistance;
     }
 
+    /**
+     * Creates an instance of BlockHardnessAction by reading from a stream.
+     * @param input The input stream to read from
+     * @return An instance of BlockHardnessAction
+     * @throws IOException I/O fails when reading from stream
+     */
     @Override
     public Action parse(DataInputStream input) throws IOException {
         this.blockId = AndesiteIO.readString(input);
@@ -63,6 +116,11 @@ public class BlockHardnessAction extends DataStreamActionWrapper implements Acti
         return this;
     }
 
+    /**
+     * Writes this action to a stream.
+     * @param output The output stream to write to
+     * @throws IOException I/O fails when writing to the stream
+     */
     @Override
     public void write(DataOutputStream output) throws IOException {
         AndesiteIO.writeString(this.blockId, output);

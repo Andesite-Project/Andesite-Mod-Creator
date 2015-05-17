@@ -28,15 +28,30 @@ public class ProjectProperties {
         this.icon = icon;
     }
     
+    /**
+     * The name of the project.
+     */
     public String name;
+    /**
+     * The internal Andesite mod ID for the project.
+     */
     public String modid;
+    /**
+     * A description of the project.
+     */
     public String description;
+    /**
+     * The version of the project.
+     */
     public String version;
+    /**
+     * An icon representing the project.
+     */
     public BufferedImage icon;
     
     /**
      * Checks whether or not this project has an icon.
-     * @return True if an icon is present; false otherwise.
+     * @return True if an icon is present; false otherwise
      */
     public boolean hasIcon() {
         return icon != null;

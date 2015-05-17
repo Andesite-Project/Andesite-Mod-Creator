@@ -33,10 +33,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * General utilities for the Andesite Project.
  * @author Marius
  */
 public class Utils {
+    /**
+     * Gets an array of actions from the given action list that are instances of the given action type class.
+     * @param <T> The action type
+     * @param actionList The list of actions to search
+     * @param clazz The action type class
+     * @return Array of actions in actionList which are instances of the given action type class
+     */
     public static <T extends Action> T[] getActionsOfType(Action[] actionList, Class<T> clazz) {
         ArrayList<T> ret = new ArrayList<T>();
         for (Action a : actionList) {
@@ -47,6 +54,15 @@ public class Utils {
         return ret.toArray((T[]) Array.newInstance(clazz, 0));
     }
     
+    /**
+     * Checks whether a comparison between A and B holds true.
+     * @param <T> The data type
+     * @param a Value A
+     * @param b Value B
+     * @param mode The comparison mode
+     * @param clazz The data type class
+     * @return True if the comparison holds true; false otherwise
+     */
     public static <T> boolean comparisonValid(T a, T b, CompareMode mode, Class<T> clazz) {
         if (clazz == Float.class) {
             return compareFloat((Float) a, (Float) b, mode);
@@ -62,6 +78,14 @@ public class Utils {
         }
     }
     
+    /**
+     * Reads a generic value of type T from the given input stream.
+     * @param <T> The value data type
+     * @param input The input stream to read from
+     * @param clazz The value data type class
+     * @return The generic type value read
+     * @throws IOException I/O fails when reading from input, or the given T is not supported by Utils
+     */
     public static <T> T readGenericFromInput(DataInputStream input, Class<T> clazz) throws IOException {
         if (clazz == Float.class) {
             return (T) Float.valueOf(input.readFloat());
@@ -77,6 +101,13 @@ public class Utils {
         }
     }
     
+    /**
+     * Writes a generic value of type T to the given output stream.
+     * @param <T> The value data type
+     * @param output The output stream to write to
+     * @param data The data to write
+     * @throws IOException I/O fails when writing to output, or the given T is not supported by Utils
+     */
     public static <T> void writeGenericToOutput(DataOutputStream output, T data) throws IOException {
         if (data instanceof Float) {
             output.writeFloat(((Float) data));
@@ -92,6 +123,13 @@ public class Utils {
         }
     }
     
+    /**
+     * Compares two floats.
+     * @param a Float A
+     * @param b Float B
+     * @param mode The comparison mode
+     * @return Whether or not the comparison between A and B holds true
+     */
     private static boolean compareFloat(float a, float b, CompareMode mode) {
         switch (mode) {
             case LESS_THAN:
@@ -112,6 +150,13 @@ public class Utils {
         throw new UnsupportedOperationException("Comparison mode " + mode.toString() + " not supported by comparisonValid for this type!");
     }
     
+    /**
+     * Compares two integers.
+     * @param a Integer A
+     * @param b Integer B
+     * @param mode The comparison mode
+     * @return Whether or not the comparison between A and B holds true
+     */
     private static boolean compareInt(int a, int b, CompareMode mode) {
         switch (mode) {
             case LESS_THAN:
@@ -132,6 +177,13 @@ public class Utils {
         throw new UnsupportedOperationException("Comparison mode " + mode.toString() + " not supported by comparisonValid for this type!");
     }
     
+    /**
+     * Compares two longs.
+     * @param a Long A
+     * @param b Long B
+     * @param mode The comparison mode
+     * @return Whether or not the comparison between A and B holds true
+     */
     private static boolean compareLong(long a, long b, CompareMode mode) {
         switch (mode) {
             case LESS_THAN:
@@ -152,6 +204,13 @@ public class Utils {
         throw new UnsupportedOperationException("Comparison mode " + mode.toString() + " not supported by comparisonValid for this type!");
     }
     
+    /**
+     * Compares two strings.
+     * @param a String A
+     * @param b String B
+     * @param mode The comparison mode
+     * @return Whether or not the comparison between A and B holds true
+     */
     private static boolean compareString(String a, String b, CompareMode mode) {
         switch (mode) {
             case EQUALS:

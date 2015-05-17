@@ -16,7 +16,13 @@ import javax.swing.JPanel;
  * @author Marius
  */
 public class ImagePanel extends JPanel {
+    /**
+     * The image to draw.
+     */
     private BufferedImage img = null;
+    /**
+     * Image anchor style.
+     */
     private AnchorStyle style = AnchorStyle.TOPLEFT;
     
     /**
@@ -98,6 +104,13 @@ public class ImagePanel extends JPanel {
      * Defines anchor styles for the image.
      */
     public enum AnchorStyle {
-        TOPLEFT, CENTERED
+        /**
+         * Image anchors to the top-left corner of the picture box.
+         */
+        TOPLEFT,
+        /**
+         * Image anchors in the middle of the picture box.
+         */
+        CENTERED
     }
 }

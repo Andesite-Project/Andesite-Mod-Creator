@@ -30,8 +30,17 @@ import java.awt.image.BufferedImage;
  * @author Marius
  */
 public class Screenshot {
+    /**
+     * The actual screenshot.
+     */
     public final BufferedImage image;
+    /**
+     * The title of the screenshot.
+     */
     public String title;
+    /**
+     * The caption of the screenshot.
+     */
     public String caption;
     
     /**

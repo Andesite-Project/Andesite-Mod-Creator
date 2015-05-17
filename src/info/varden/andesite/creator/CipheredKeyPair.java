@@ -61,10 +61,39 @@ public class CipheredKeyPair {
     private final int keylength;
     private String owner;
     
+    /**
+     * Ciphers a key pair.
+     * @param kp The key pair to encrypt
+     * @param password The password to encrypt with
+     * @param keylength The key length of the AES encryption
+     * @param owner The owner of the key pair
+     * @throws NoSuchAlgorithmException The RSA algorithm does not exist on this machine
+     * @throws InvalidKeySpecException The RSA key specification does not exist on this machine
+     * @throws NoSuchPaddingException The RSA cipher does not exist on this machine
+     * @throws InvalidKeyException The package's public key is invalid
+     * @throws IllegalBlockSizeException The block size for the public key specification is invalid
+     * @throws BadPaddingException The project data is not padded properly
+     * @throws InvalidParameterSpecException The AES parameter specifications are not supported on this machine
+     */
     public CipheredKeyPair(KeyPair kp, String password, int keylength, String owner) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException {
         this(kp.getPublic(), kp.getPrivate(), password, keylength, owner);
     }
     
+    /**
+     * Ciphers a key pair.
+     * @param publicKey The public key of the key pair
+     * @param privateKey The private key of the key pair
+     * @param password The password to encrypt with
+     * @param keylength The key length of the AES encryption
+     * @param owner The owner of the key pair
+     * @throws NoSuchAlgorithmException The RSA algorithm does not exist on this machine
+     * @throws InvalidKeySpecException The RSA key specification does not exist on this machine
+     * @throws NoSuchPaddingException The RSA cipher does not exist on this machine
+     * @throws InvalidKeyException The package's public key is invalid
+     * @throws IllegalBlockSizeException The block size for the public key specification is invalid
+     * @throws BadPaddingException The project data is not padded properly
+     * @throws InvalidParameterSpecException The AES parameter specifications are not supported on this machine
+     */
     public CipheredKeyPair(PublicKey publicKey, PrivateKey privateKey, String password, int keylength, String owner) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, InvalidParameterSpecException, IllegalBlockSizeException, BadPaddingException {
         KeyFactory kf = KeyFactory.getInstance("RSA");
         RSAPrivateKeySpec priv = kf.getKeySpec(privateKey, RSAPrivateKeySpec.class);
@@ -85,6 +114,15 @@ public class CipheredKeyPair {
         this.owner = owner;
     }
     
+    /**
+     * Creates a CipheredKeyPair instance from an already ciphered key pair.
+     * @param publicKey The public key of the key pair
+     * @param cipheredPrivateExp The encrypted private key of the key pair
+     * @param salt The AES key salt
+     * @param iv The AES key initialization vectors
+     * @param keylength The AES key length
+     * @param owner The owner of the key
+     */
     public CipheredKeyPair(PublicKey publicKey, byte[] cipheredPrivateExp, byte[] salt, byte[] iv, int keylength, String owner) {
         this.publicKey = publicKey;
         this.cphPrivExp = cipheredPrivateExp;
@@ -94,10 +132,26 @@ public class CipheredKeyPair {
         this.owner = owner;
     }
     
+    /**
+     * Gets the public key of this key pair.
+     * @return The public key
+     */
     public PublicKey getPublicKey() {
         return this.publicKey;
     }
     
+    /**
+     * Decrypts and returns the private key of this key pair.
+     * @param password The password to decrypt with
+     * @return The private key
+     * @throws NoSuchAlgorithmException The RSA algorithm does not exist on this machine
+     * @throws InvalidKeySpecException The RSA key specification does not exist on this machine
+     * @throws NoSuchPaddingException The RSA cipher does not exist on this machine
+     * @throws InvalidKeyException The package's public key is invalid
+     * @throws IllegalBlockSizeException The block size for the public key specification is invalid
+     * @throws BadPaddingException The project data is not padded properly
+     * @throws InvalidAlgorithmParameterException The AES parameter specifications are not supported on this machine
+     */
     public PrivateKey getPrivateKey(String password) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         KeySpec ks = new PBEKeySpec(password.toCharArray(), salt, 65536, keylength);
@@ -111,32 +165,62 @@ public class CipheredKeyPair {
         return kf.generatePrivate(privSpec);
     }
     
+    /**
+     * Returns the encrypted private key.
+     * @return The encrypted private key
+     */
     public byte[] getCipheredPrivateExponent() {
         return this.cphPrivExp;
     }
     
+    /**
+     * Returns the AES salt.
+     * @return The salt
+     */
     public byte[] getSalt() {
         return this.salt;
     }
     
+    /**
+     * Returns the AES initialization vectors.
+     * @return The initialization vectors
+     */
     public byte[] getIV() {
         return this.iv;
     }
     
+    /**
+     * Returns the AES key length.
+     * @return The AES key length
+     */
     public int getAESKeyLength() {
         return this.keylength;
     }
     
+    /**
+     * Returns the RSA key length.
+     * @return The RSA key length
+     * @throws NoSuchAlgorithmException The RSA algorithm does not exist on this machine
+     * @throws InvalidKeySpecException The RSA key specification does not exist on this machine
+     */
     public int getRSAKeyLength() throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory kf = KeyFactory.getInstance("RSA");
         RSAPublicKeySpec pub = kf.getKeySpec(this.publicKey, RSAPublicKeySpec.class);
         return pub.getModulus().bitLength();
     }
     
+    /**
+     * Returns the owner of the key pair.
+     * @return The owner
+     */
     public String getOwner() {
         return this.owner;
     }
     
+    /**
+     * Sets the owner of the key pair.
+     * @param owner The owner to set
+     */
     public void setOwner(String owner) {
         this.owner = owner;
     }

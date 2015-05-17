@@ -24,9 +24,24 @@
 package info.varden.andesite.io;
 
 /**
- *
+ * Indicates current project save state.
  * @author Marius
  */
 public enum SaveState {
-    SAVED, SAVING, UNSAVED, OPENING;
+    /**
+     * The project is saved; there are no unsaved changes.
+     */
+    SAVED,
+    /**
+     * The project is currently saving.
+     */
+    SAVING,
+    /**
+     * THe project has unsaved changes.
+     */
+    UNSAVED,
+    /**
+     * The project is currently being opened.
+     */
+    OPENING;
 }

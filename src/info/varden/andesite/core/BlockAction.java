@@ -24,9 +24,13 @@
 package info.varden.andesite.core;
 
 /**
- *
+ * Action which applies to a block type.
  * @author Marius
  */
 public interface BlockAction extends Action {
+    /**
+     * Gets the block ID this action applies to.
+     * @return The block ID
+     */
     public String getBlockId();
 }

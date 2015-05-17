@@ -38,6 +38,9 @@ import java.util.HashMap;
  * @author Marius
  */
 public final class PlayerConditions {
+    /**
+     * List of player condition types indexed by their corresponding IDs.
+     */
     private static final HashMap<Integer, Class<? extends PlayerCondition>> conditionMap = new HashMap<Integer, Class<? extends PlayerCondition>>() {{
         ArrayList<Class<? extends PlayerCondition>> conditionClasses = new ArrayList<Class<? extends PlayerCondition>>() {{
             add(PlayerAbsorbtionCondition.class);
@@ -61,6 +64,18 @@ public final class PlayerConditions {
         }
     }
     
+    /**
+     * Reads a player condition from the given input stream.
+     * @param input The input stream to read from
+     * @return A player condition instance
+     * @throws InstantiationException Can not instantiate the player condition contained in the project stream
+     * @throws IllegalAccessException The player condition class corresponding to the player condition stored in the project stream can not be accessed
+     * @throws InvocationTargetException The constructor for the player condition in the project format stream fails to invoke
+     * @throws SecurityException The player condition cannot be read
+     * @throws NoSuchMethodException The player condition does not support instantiation
+     * @throws IOException I/O operation fails
+     * @throws IllegalArgumentException The constructor for the player condition is invalid
+     */
     public static PlayerCondition readFromInput(DataInputStream input) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, IOException {
         int condID = input.readInt();
         Class<? extends PlayerCondition> condClass = findClassById(condID);
@@ -70,6 +85,12 @@ public final class PlayerConditions {
         return Serialization.readFromInput(input, condClass);
     }
     
+    /**
+     * Writes a player condition to the given output stream.
+     * @param cond The player condition to write
+     * @param output The output stream to write to
+     * @throws IOException I/O operation fails
+     */
     public static void writeToOutput(PlayerCondition cond, DataOutputStream output) throws IOException {
         PlayerConditionData data = cond.getClass().getAnnotation(PlayerConditionData.class);
         output.writeInt(data.id());

@@ -41,6 +41,9 @@ import java.util.HashMap;
  * @author Marius
  */
 public final class Actions {
+    /**
+     * List of action types indexed by their corresponding IDs.
+     */
     private static final HashMap<Integer, Class<? extends Action>> actionMap = new HashMap<Integer, Class<? extends Action>>() {{
         ArrayList<Class<? extends Action>> actionClasses = new ArrayList<Class<? extends Action>>() {{
             add(BlockLightValueAction.class);
@@ -68,6 +71,19 @@ public final class Actions {
         }
     }
     
+    /**
+     * Reads an action from the given input stream.
+     * @param input The input stream to read from
+     * @return An action instance
+     * @throws ClassCastException The action in the project format stream is not an instance of Action
+     * @throws InstantiationException Can not instantiate the action contained in the project stream
+     * @throws IllegalAccessException The action class corresponding to the action stored in the project stream can not be accessed
+     * @throws InvocationTargetException The constructor for the action in the project format stream fails to invoke
+     * @throws SecurityException The action cannot be read
+     * @throws NoSuchMethodException The action does not support instantiation
+     * @throws IOException I/O operation fails
+     * @throws IllegalArgumentException The constructor for the action is invalid
+     */
     public static Action readFromInput(DataInputStream input) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, IOException {
         int actionID = input.readInt();
         Class<? extends Action> actionClass = findClassById(actionID);
@@ -77,6 +93,12 @@ public final class Actions {
         return Serialization.readFromInput(input, actionClass);
     }
     
+    /**
+     * Writes an action to the given output stream.
+     * @param action The action to write
+     * @param output The output stream to write to
+     * @throws IOException I/O operation fails
+     */
     public static void writeToOutput(Action action, DataOutputStream output) throws IOException {
         ActionData data = action.getClass().getAnnotation(ActionData.class);
         output.writeInt(data.id());

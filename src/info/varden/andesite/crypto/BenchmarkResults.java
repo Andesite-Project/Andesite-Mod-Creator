@@ -24,16 +24,27 @@
 package info.varden.andesite.crypto;
 
 /**
- *
+ * RSA keygen benchmark results.
  * @author Marius
  */
 public class BenchmarkResults {
+    /**
+     * List of results.
+     */
     private final long[] results;
     
+    /**
+     * Initializes the results.
+     * @param results The results
+     */
     protected BenchmarkResults(long[] results) {
         this.results = results;
     }
     
+    /**
+     * Returns the fastest recorded keygen time.
+     * @return Keygen time in milliseconds
+     */
     public long getFastestBenchmarkMillis() {
         long shortest = Long.MAX_VALUE;
         for (long result : results) {
@@ -44,6 +55,10 @@ public class BenchmarkResults {
         return shortest;
     }
     
+    /**
+     * Returns the slowest recorded keygen time.
+     * @return Keygen time in milliseconds
+     */
     public long getSlowestBenchmarkMillis() {
         long longest = Long.MIN_VALUE;
         for (long result : results) {
@@ -54,6 +69,10 @@ public class BenchmarkResults {
         return longest;
     }
     
+    /**
+     * Returns the average keygen time.
+     * @return Keygen time in milliseconds
+     */
     public double getAverageBenchmarkMillis() {
         double total = 0D;
         for (long result : results) {
