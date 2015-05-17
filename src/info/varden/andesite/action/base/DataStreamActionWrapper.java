@@ -23,15 +23,14 @@
  */
 package info.varden.andesite.action.base;
 
+import info.varden.andesite.core.Action;
+import info.varden.andesite.io.Serializable;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import info.varden.andesite.core.Action;
-import info.varden.andesite.io.Serializable;
 
 /**
  * Abstraction layer made to make it easier for actions to parse and write by converting the required byte arrays to data input and output streams.

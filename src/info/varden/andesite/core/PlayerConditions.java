@@ -24,7 +24,7 @@
 package info.varden.andesite.core;
 
 import info.varden.andesite.io.Serialization;
-import info.varden.andesite.playercondition.*;
+import info.varden.andesite.playercondition.PlayerAbsorbtionCondition;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

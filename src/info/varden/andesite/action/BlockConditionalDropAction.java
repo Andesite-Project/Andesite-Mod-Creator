@@ -39,7 +39,6 @@ import info.varden.andesite.modloader.BlockWrapper;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;

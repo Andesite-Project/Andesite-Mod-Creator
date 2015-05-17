@@ -23,15 +23,13 @@
  */
 package info.varden.andesite.playercondition.base;
 
+import info.varden.andesite.core.PlayerCondition;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import info.varden.andesite.core.Action;
-import info.varden.andesite.core.PlayerCondition;
 
 public abstract class DataStreamConditionWrapper implements PlayerCondition {
 

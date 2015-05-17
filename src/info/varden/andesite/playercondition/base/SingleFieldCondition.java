@@ -23,19 +23,14 @@
  */
 package info.varden.andesite.playercondition.base;
 
-import info.varden.andesite.core.Action;
 import info.varden.andesite.core.CompareMode;
 import info.varden.andesite.core.PlayerCondition;
 import info.varden.andesite.core.Utils;
-import info.varden.andesite.io.AndesiteIO;
 import info.varden.andesite.modloader.PlayerWrapper;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public abstract class SingleFieldCondition<T> extends DataStreamConditionWrapper implements PlayerCondition {
     

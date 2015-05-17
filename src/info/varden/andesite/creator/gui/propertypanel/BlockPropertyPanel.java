@@ -33,14 +33,13 @@ import info.varden.andesite.core.AndesiteProject;
 import info.varden.andesite.core.BlockAction;
 import info.varden.andesite.core.Utils;
 import info.varden.andesite.creator.UIUtils;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import javax.swing.JFormattedTextField;
-import javax.swing.JSpinner;
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.DefaultFormatter;
 
 /**
  *

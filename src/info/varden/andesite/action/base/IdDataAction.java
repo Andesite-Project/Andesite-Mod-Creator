@@ -27,12 +27,9 @@ import info.varden.andesite.core.Action;
 import info.varden.andesite.core.Utils;
 import info.varden.andesite.io.AndesiteIO;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * Abstraction layer that simplifies creation of actions storing data as a String-T key-value pair.

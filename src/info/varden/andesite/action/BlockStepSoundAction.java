@@ -23,16 +23,16 @@
  */
 package info.varden.andesite.action;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 import info.varden.andesite.action.base.DataStreamActionWrapper;
 import info.varden.andesite.core.Action;
 import info.varden.andesite.core.ActionData;
 import info.varden.andesite.core.BlockAction;
 import info.varden.andesite.io.AndesiteIO;
 import info.varden.andesite.modloader.BlockWrapper;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  * Action that sets the sounds when stepping on and breaking blocks.

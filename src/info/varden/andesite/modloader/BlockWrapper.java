@@ -27,7 +27,6 @@ import info.varden.andesite.core.BlockBreakSource;
 import info.varden.andesite.core.PlayerRequirements;
 import info.varden.andesite.core.SilkTouchMode;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import net.minecraft.block.Block;
