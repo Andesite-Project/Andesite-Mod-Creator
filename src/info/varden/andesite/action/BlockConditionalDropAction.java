@@ -50,9 +50,9 @@ import net.minecraft.item.ItemStack;
 @ActionData(id = 6, version = 1)
 public class BlockConditionalDropAction extends DataStreamActionWrapper implements Action, BlockAction, VariableVersionParser {
     
-	/**
-	 * The ID of the block this action applies to.
-	 */
+    /**
+     * The ID of the block this action applies to.
+     */
     private String blockId;
     /**
      * Silk touch status criterion.

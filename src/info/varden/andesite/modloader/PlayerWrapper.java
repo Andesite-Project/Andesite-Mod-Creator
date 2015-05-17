@@ -31,9 +31,9 @@ import net.minecraft.entity.player.EntityPlayer;
  */
 public class PlayerWrapper {
     
-	/**
-	 * The wrapped player.
-	 */
+    /**
+     * The wrapped player.
+     */
     private final EntityPlayer player;
     
     /**
