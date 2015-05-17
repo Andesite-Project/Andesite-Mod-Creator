@@ -6,19 +6,12 @@
             <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/gui/propertypanel/BlockPropertyPanel.java</file>
             <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/core/Utils.java</file>
             <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/gui/NewKeyGui.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/action/BlockLightValueAction.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/action/BlockStepSoundAction.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/action/base/IdDataAction.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/Main.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/gui/PackGui.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/io/SaveState.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/action/base/DataStreamActionWrapper.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/modloader/BlockWrapper.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/io/AndesiteIO.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/core/AndesiteProject.java</file>
+            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/action/BlockConditionalDropAction.java</file>
             <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/gui/CreatorGui.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/core/BlockAction.java</file>
-            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/UIUtils.java</file>
+            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/gui/PackGui.java</file>
+            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/Main.java</file>
+            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/creator/gui/ProjectPropertiesDialog.java</file>
+            <file>file:/C:/Users/Marius/Documents/NetBeansProjects/Andesite%20Mod%20Creator/src/info/varden/andesite/io/AndesiteIO.java</file>
         </group>
     </open-files>
 </project-private>
