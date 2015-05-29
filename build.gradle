@@ -32,6 +32,11 @@ archivesBaseName = name
 targetCompatibility = '1.6'
 sourceCompatibility = '1.6'
 
+// Set the main class
+if (!hasProperty('mainClass')) {
+    ext.mainClass = 'info.varden.andesite.creator.Main'
+}
+
 minecraft {
     version = "1.8-11.14.1.1409"
     runDir = "eclipse"
