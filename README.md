@@ -30,3 +30,13 @@ I have no idea. Maybe it never will. Anyone is welcome to help out, though! The 
 ### I have a feature suggestion, what do I do?
 
 You can either create an issue on this GitHub project, create a pull request if you've got code (remember, it will be MIT licensed) or suggest it on the IRC channel.
+
+### How do I set up the Andesite Project developer workspace?
+
+#### NetBeans
+
+1. Clone this repository.
+2. Open a terminal/command prompt in the cloned directory and execute `./gradlew setupDecompWorkspace`. Wait for Gradle to finish.
+3. Open NetBeans, go to Tools -> Plugins -> Available Plugins and search for Gradle. Install Gradle and restart NetBeans.
+4. Go to File -> Open Project and browse to the cloned directory. Open this as the project.
+5. NetBeans might take a few minutes to set up Gradle for the project. When set up, the sources will appear in the Projects view, and can be run by pressing the Run button or via F6.
