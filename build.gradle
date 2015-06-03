@@ -13,6 +13,10 @@ buildscript{
 
 apply from: 'api/common_build.gradle'
 
+apply plugin: 'application'
+
+mainClassName='info.varden.andesite.creator.Main'
+
 // Project repositories
 repositories{
   // JCenter
