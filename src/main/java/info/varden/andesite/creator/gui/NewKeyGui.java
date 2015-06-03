@@ -23,7 +23,7 @@
  */
 package info.varden.andesite.creator.gui;
 
-import info.varden.andesite.creator.CipheredKeyPair;
+import info.varden.andesite.crypto.CipheredKeyPair;
 import info.varden.andesite.creator.crypto.BenchmarkResults;
 import info.varden.andesite.creator.crypto.CryptoBenchmark;
 import info.varden.andesite.creator.crypto.RSAKeygenResults;

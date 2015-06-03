@@ -23,7 +23,7 @@
  */
 package info.varden.andesite.creator.gui;
 
-import info.varden.andesite.creator.CipheredKeyPair;
+import info.varden.andesite.crypto.CipheredKeyPair;
 import info.varden.andesite.io.AndesiteIO;
 
 import java.io.File;

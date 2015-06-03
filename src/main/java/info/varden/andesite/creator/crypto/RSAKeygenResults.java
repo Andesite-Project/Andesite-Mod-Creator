@@ -23,7 +23,7 @@
  */
 package info.varden.andesite.creator.crypto;
 
-import info.varden.andesite.creator.CipheredKeyPair;
+import info.varden.andesite.crypto.CipheredKeyPair;
 
 /**
  * Results for RSA key generation.
