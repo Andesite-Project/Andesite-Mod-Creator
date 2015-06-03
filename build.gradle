@@ -11,6 +11,8 @@ buildscript{
   }
 }
 
+apply from: 'api/common_build.gradle'
+
 // Project repositories
 repositories{
   // JCenter
@@ -21,8 +23,5 @@ repositories{
 
 // Project dependencies
 dependencies{
-  // add api jar
-
+  compile project(":api")
 }
-
-apply from: 'api/common_build.gradle'

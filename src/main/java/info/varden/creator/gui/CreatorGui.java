@@ -25,7 +25,7 @@ package info.varden.andesite.creator.gui;
 
 import info.varden.andesite.core.AndesiteProject;
 import info.varden.andesite.creator.gui.propertypanel.BlockPropertyPanel;
-import info.varden.andesite.helper.ThreadAccessibleObjectStorage;
+import info.varden.andesite.util.ThreadAccessibleObjectStorage;
 import info.varden.andesite.io.AndesiteIO;
 import info.varden.andesite.io.SaveState;
 

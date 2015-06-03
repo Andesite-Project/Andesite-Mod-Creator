@@ -24,10 +24,10 @@
 package info.varden.andesite.creator.gui;
 
 import info.varden.andesite.creator.CipheredKeyPair;
-import info.varden.andesite.crypto.BenchmarkResults;
-import info.varden.andesite.crypto.CryptoBenchmark;
-import info.varden.andesite.helper.RSAKeygenResults;
-import info.varden.andesite.helper.ThreadAccessibleObjectStorage;
+import info.varden.andesite.creator.crypto.BenchmarkResults;
+import info.varden.andesite.creator.crypto.CryptoBenchmark;
+import info.varden.andesite.creator.crypto.RSAKeygenResults;
+import info.varden.andesite.util.ThreadAccessibleObjectStorage;
 
 import java.awt.Color;
 import java.awt.Frame;
