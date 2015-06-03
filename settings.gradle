@@ -1,1 +1,3 @@
-rootProject.name = 'andesite'
+include 'api'
+
+rootProject.name = 'creator'

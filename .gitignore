@@ -3,3 +3,6 @@
 /bin/
 /.gradle/
 /.nb-gradle/
+.nb-gradle-properties
+.classpath
+.project
